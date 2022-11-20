@@ -1,13 +1,18 @@
+import Link from "next/link";
 import { TOKEN, DATABASE_ID } from "../config";
 
-export default function Home({ projects }: any) {
+export default function Home({ title }: any) {
   return (
     <main className="flex h-screen w-full">
-      <span className="m-auto">
-        {projects.map((v: any, i: number) => {
-          return <div key={i}>{v.code.rich_text[0].plain_text}</div>;
+      <div className="m-auto">
+        {title.map((v: any, i: number) => {
+          return (
+            <Link key={i} href={`/${i + 1}`}>
+              <div>{v}</div>
+            </Link>
+          );
         })}
-      </span>
+      </div>
     </main>
   );
 }
@@ -37,9 +42,11 @@ export async function getStaticProps() {
     options
   );
   const result = await res.json();
-  const projects = result.results.map((data: any) => data.properties);
+  const title = result.results.map(
+    (data: any) => data.properties.title.title[0].plain_text
+  );
   return {
-    props: { projects },
+    props: { title },
     revalidate: 1, // 데이터 변경이 있으면 갱신 1초 마다
   };
 }
