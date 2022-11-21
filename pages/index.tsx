@@ -7,7 +7,7 @@ export default function Home({ title }: any) {
       <div className="m-auto">
         {title.map((v: any, i: number) => {
           return (
-            <Link key={i} href={`/${i + 1}`}>
+            <Link key={v} href={`/${i + 1}`}>
               <div>{v}</div>
             </Link>
           );
@@ -27,6 +27,12 @@ export async function getStaticProps() {
       Authorization: `Bearer ${TOKEN}`,
     },
     body: JSON.stringify({
+      sorts: [
+        {
+          property: "num",
+          direction: "ascending",
+        },
+      ],
       page_size: 100,
     }),
   };
