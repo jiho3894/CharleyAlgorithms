@@ -27,12 +27,6 @@ export async function getStaticProps() {
       Authorization: `Bearer ${TOKEN}`,
     },
     body: JSON.stringify({
-      sorts: [
-        {
-          property: "title",
-          direction: "ascending",
-        },
-      ],
       page_size: 100,
     }),
   };
