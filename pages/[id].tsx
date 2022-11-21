@@ -17,7 +17,7 @@ export default Detail;
 
 export const getStaticPaths = async () => {
   return {
-    paths: Array.from({ length: 10 }, (_, i) => i + 1).map((id) => {
+    paths: Array.from({ length: 100 }, (_, i) => i + 1).map((id) => {
       return {
         params: {
           id: String(id),
@@ -39,9 +39,9 @@ export async function getStaticProps(content: any) {
     },
     body: JSON.stringify({
       filter: {
-        property: "title",
-        rich_text: {
-          contains: `${content.params.id}`,
+        property: "num",
+        number: {
+          equals: Number(content.params.id),
         },
       },
     }),
@@ -52,7 +52,9 @@ export async function getStaticProps(content: any) {
     options
   );
   const result = await res.json();
-  const projects = result.results.map((data: any) => data.properties);
+  const projects = result.results.map((data: any) => {
+    return data.properties;
+  });
   return {
     props: { projects },
     revalidate: 1, // 데이터 변경이 있으면 갱신 1초 마다
