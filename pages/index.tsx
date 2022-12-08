@@ -3,16 +3,19 @@ import { TOKEN, DATABASE_ID } from "../config";
 
 export default function Home({ title }: any) {
   return (
-    <main className="flex h-screen w-full">
-      <div className="m-auto">
+    <main className="flex h-screen w-full flex-col items-center">
+      <header className="fixed h-8 bg-slate-200">
+        <span className="text-xl">찰리 알고리즘 문제 모음</span>
+      </header>
+      <ul className="m-auto h-[calc(100%-4rem)] ">
         {title.map((v: any, i: number) => {
           return (
-            <Link key={v} href={`/${i + 1}`}>
-              <div>{v}</div>
+            <Link  key={v} href={`/${i + 1}`}>
+              <div className="h-6 w-[200px] border-2 mb-2">{v}</div>
             </Link>
           );
         })}
-      </div>
+      </ul>
     </main>
   );
 }
